@@ -1,22 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Description>libsodium for .net core</Description>
-    <Copyright>Copyright © tabrath 2017</Copyright>
-    <AssemblyTitle>Sodium.Core</AssemblyTitle>
-    <VersionPrefix>1.2.0</VersionPrefix>
-    <Authors>tabrath</Authors>
+    <TargetFrameworks>MonoAndroid90;Xamarin.iOS10;netstandard1.6;netstandard2.0</TargetFrameworks>
+    <Description>libsodium for Xamarin</Description>
+    <Copyright>Copyright © Liip 2019</Copyright>
+    <AssemblyTitle>Sodium.Xamarin</AssemblyTitle>
+    <VersionPrefix>0.0.2</VersionPrefix>
+    <Authors>jschmid</Authors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AssemblyName>Sodium.Core</AssemblyName>
-    <PackageId>Sodium.Core</PackageId>
-    <PackageTags>libsodium</PackageTags>
-    <PackageLicenseUrl>https://github.com/tabrath/libsodium-core/blob/master/LICENSE</PackageLicenseUrl>
+    <AssemblyName>Sodium.Xamarin</AssemblyName>
+    <PackageId>Sodium.Xamarin</PackageId>
+    <PackageTags>libsodium;xamarin;xamarin.ios;xamarin.android</PackageTags>
+    <PackageLicenseUrl>https://github.com/liip/Sodium.Xamarin/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/tabrath/libsodium-core/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/liip/Sodium.Xamarin/</RepositoryUrl>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputType>Library</OutputType>
-    <PackageProjectUrl>https://github.com/tabrath/libsodium-core/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/liip/Sodium.Xamarin/</PackageProjectUrl>
     <RootNamespace>Sodium</RootNamespace>
     <PackageIconUrl>http://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Salt_shaker_on_white_background.jpg/220px-Salt_shaker_on_white_background.jpg</PackageIconUrl>
     <PreserveCompilationContext>true</PreserveCompilationContext>
@@ -34,6 +34,13 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('Xamarin.iOS'))">
+    <DefineConstants>$(DefineConstants);IOS</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('MonoAndroid'))">
+    <DefineConstants>$(DefineConstants);ANDROID</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
