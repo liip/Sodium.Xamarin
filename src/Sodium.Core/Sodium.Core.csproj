@@ -5,7 +5,7 @@
     <Description>libsodium for Xamarin</Description>
     <Copyright>Copyright © Liip 2019</Copyright>
     <AssemblyTitle>Sodium.Xamarin</AssemblyTitle>
-    <VersionPrefix>0.0.2</VersionPrefix>
+    <VersionPrefix>0.0.3</VersionPrefix>
     <Authors>jschmid</Authors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyName>Sodium.Xamarin</AssemblyName>
