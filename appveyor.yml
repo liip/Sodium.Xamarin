@@ -41,13 +41,22 @@ build_script:
   - ps: |
       if ($env:APPVEYOR_REPO_BRANCH -eq "master")
       {
-        msbuild /t:pack "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION
+        msbuild /t:build "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION
       }
       else
       {
-        msbuild /t:pack "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION /p:version-suffix=$env:VERSION_SUFFIX
+        msbuild /t:build "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION /p:version-suffix=$env:VERSION_SUFFIX
       }
-      Copy-Item -Path src\Sodium.Core\bin\$env:CONFIGURATION\*.nupkg -Destination $env:APPVEYOR_BUILD_FOLDER\artifacts
+after_build:
+  - ps: |
+      if ($env:APPVEYOR_REPO_BRANCH -eq "master")
+      {
+        msbuild /t:pack "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION /p:NoBuild=true /p:PackageOutputPath=$env:APPVEYOR_BUILD_FOLDER\artifacts
+      }
+      else
+      {
+        msbuild /t:pack "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION /p:NoBuild=true /p:version-suffix=$env:VERSION_SUFFIX /p:PackageOutputPath=$env:APPVEYOR_BUILD_FOLDER\artifacts
+      }
 
 test: off
 
