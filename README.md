@@ -35,7 +35,7 @@ Make sure everything went fine.
 Run the command:
 
 ```bash
-dist-build/ios.sh
+LIBSODIUM_FULL_BUILD=true dist-build/ios.sh
 ```
 
 This will create a new folder *libsodium-ios* that contains the *libsodium.a* file.
