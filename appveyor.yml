@@ -4,7 +4,7 @@ environment:
 version: ${PKG_VERSION}-{build}
 configuration: Release
 platform: x64
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 skip_commits:
   message: /chore/
@@ -41,11 +41,21 @@ build_script:
   - ps: |
       if ($env:APPVEYOR_REPO_BRANCH -eq "master")
       {
-        msbuild /t:pack /p:Configuration=$env:CONFIGURATION /p:OutputPath=$env:APPVEYOR_BUILD_FOLDER\artifacts libsodium-core.sln
+        msbuild /t:build "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION
       }
       else
       {
-        msbuild /t:pack /p:Configuration=$env:CONFIGURATION /p:OutputPath=$env:APPVEYOR_BUILD_FOLDER\artifacts /p:version-suffix=$env:VERSION_SUFFIX libsodium-core.sln
+        msbuild /t:build "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION /p:version-suffix=$env:VERSION_SUFFIX
+      }
+after_build:
+  - ps: |
+      if ($env:APPVEYOR_REPO_BRANCH -eq "master")
+      {
+        msbuild /t:pack "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION /p:NoBuild=true /p:PackageOutputPath=$env:APPVEYOR_BUILD_FOLDER\artifacts
+      }
+      else
+      {
+        msbuild /t:pack "src\Sodium.Core" /p:Configuration=$env:CONFIGURATION /p:NoBuild=true /p:version-suffix=$env:VERSION_SUFFIX /p:PackageOutputPath=$env:APPVEYOR_BUILD_FOLDER\artifacts
       }
 
 test: off
